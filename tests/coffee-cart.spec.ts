@@ -36,7 +36,6 @@ test('verify page elements are presented on the page - part 3', async ({ page })
 });
 
 test('verify checkout form elements are presented', async ({ page }) => {
-  await page.goto('https://coffee-cart.app/');
   await page.locator('[data-test="Espresso"]').click();
   await page.locator('[data-test="Espresso_Macchiato"]').click();
   await page.locator('[data-test="checkout"]').click();
@@ -50,7 +49,6 @@ test('verify checkout form elements are presented', async ({ page }) => {
 });
 
 test('verify checkout form values are filled correctly', async ({ page }) => {
-  await page.goto('https://coffee-cart.app/');
   await page.locator('[data-test="Espresso"]').click();
   await page.locator('[data-test="checkout"]').click();
   await page.getByRole('textbox', { name: 'Name' }).fill('test');
@@ -64,7 +62,6 @@ test('verify checkout form values are filled correctly', async ({ page }) => {
 });
 
 test('verify number of items in cart is updated correctly', async ({ page }) => {
-  await page.goto('https://coffee-cart.app/');
   await expect(page.getByRole('listitem').filter({ hasText: 'cart (0)' })).toBeVisible();
   await page.locator('[data-test="Espresso"]').click();
   await expect(page.getByRole('listitem').filter({ hasText: 'cart (1)' })).toBeVisible();
