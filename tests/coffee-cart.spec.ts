@@ -12,7 +12,7 @@ test.describe('Coffee Cart Tests', () => {
     await expect(page.locator('[data-test="checkout"]')).toBeVisible();
   });
 
-  test('verify page elements are presented on the page - part 2', async ({ page }) => {
+  test('verify page elements are presented on the page', async ({ page }) => {
     await expect(page.locator('[data-test="Espresso"]')).toBeVisible();
     await expect(page.locator('[data-test="Espresso_Macchiato"]')).toBeVisible();
     await expect(page.locator('[data-test="Cappuccino"]')).toBeVisible();
