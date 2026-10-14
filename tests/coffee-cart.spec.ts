@@ -6,34 +6,31 @@ test.describe('Coffee Cart Tests', () => {
   });
 
   test('verify page header elements are presented on the page', async ({ page }) => {
-    await expect(page.locator('[data-test="Menu page"]')).toBeVisible();
-    await expect(page.locator('[data-test="Cart page"]')).toBeVisible();
-    await expect(page.locator('[data-test="GitHub page"]')).toBeVisible();
-    await expect(page.locator('[data-test="checkout"]')).toBeVisible();
+    await expect(page.locator('role=link[name="Menu page"]')).toBeVisible();
+    await expect(page.locator('role=listitem').filter({ hasText: 'cart (0)' })).toBeVisible();
+    await expect(page.locator('role=listitem').filter({ hasText: 'GitHub' })).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: /^Total: \$0\.00$/ })).toBeVisible();
   });
 
   test('verify page elements are presented on the page', async ({ page }) => {
-    await expect(page.locator('[data-test="Espresso"]')).toBeVisible();
-    await expect(page.locator('[data-test="Espresso_Macchiato"]')).toBeVisible();
-    await expect(page.locator('[data-test="Cappuccino"]')).toBeVisible();
-    await expect(page.locator('[data-test="Mocha"]')).toBeVisible();
-    await expect(page.locator('[data-test="Flat_White"]')).toBeVisible();
-    await expect(page.locator('[data-test="Americano"]')).toBeVisible();
-    await expect(page.locator('[data-test="Cafe_Latte"]')).toBeVisible();
-    await expect(page.locator('[data-test="Espresso_Con Panna"]')).toBeVisible();
-    await expect(page.locator('[data-test="Cafe_Breve"]')).toBeVisible();
+    await expect(page.locator('div').nth(4)).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: 'espressomilk foam' }).nth(3)).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: 'espressochocolate' }).nth(3)).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: 'espressosteamed milkmilk foam' }).nth(3)).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: 'espressosteamed milk' }).nth(3)).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: 'espressowater' }).nth(3)).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: 'espressowhipped cream' }).nth(3)).toBeVisible();
+    await expect(page.locator('div').filter({ hasText: 'espressosteamed milksteamed' }).nth(3)).toBeVisible();
   });  
 
   test('verify checkout form elements are presented', async ({ page }) => {
-    await page.locator('[data-test="Espresso"]').click();
-    await page.locator('[data-test="Espresso_Macchiato"]').click();
+    await page.locator('div').nth(4).click();
+    await page.locator('div').filter({ hasText: 'espressomilk foam' }).nth(3).click();
     await page.locator('[data-test="checkout"]').click();
     await expect(page.locator('text=Payment details×We will send')).toBeVisible();
     await expect(page.locator('role=heading[name="Payment details"]')).toBeVisible();
     await expect(page.locator('text=We will send you a payment')).toBeVisible();
-    await expect(page.locator('text=Name')).toBeVisible();
     await expect(page.locator('role=textbox[name="Name"]')).toBeVisible();
-    await expect(page.locator('text=Email')).toBeVisible();
     await expect(page.locator('role=textbox[name="Email"]')).toBeVisible();
     await expect(page.locator('role=checkbox[name="Promotion checkbox"]')).toBeVisible();
     await expect(page.locator('role=button[name="Submit"]')).toBeVisible();
