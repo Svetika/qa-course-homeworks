@@ -17,6 +17,15 @@ test.describe('Interactions table tests', () => {
     await expect(rows.nth(2)).toHaveAttribute('data-testid', 'interactions-table-row-3');
     await expect(rows.nth(3)).toHaveAttribute('data-testid', 'interactions-table-row-4');
     await expect(rows.nth(4)).toHaveAttribute('data-testid', 'interactions-table-row-1');
+
+    // Натиснути на заголовок колонки "Тест" для сортування елементів
+    await page.locator('xpath=//*[@data-testid="interactions-sort-name"]').click();
+
+    // Отримати конкретний рядок через nth()
+    await expect(rows.nth(1)).toHaveAttribute('data-testid', 'interactions-table-row-1');
+    await expect(rows.nth(2)).toHaveAttribute('data-testid', 'interactions-table-row-4');
+    await expect(rows.nth(3)).toHaveAttribute('data-testid', 'interactions-table-row-3');
+    await expect(rows.nth(4)).toHaveAttribute('data-testid', 'interactions-table-row-2');
   });
 
   test('verify elements can be checked and "checked" count is updated accordingly', async ({ page }) => {
@@ -28,6 +37,12 @@ test.describe('Interactions table tests', () => {
 
     // Перевірити, що лічильник вибраних елементів оновився
     await expect(page.locator('xpath=//*[@data-testid="interactions-selected-count"]')).toContainText('1');
+
+    // Натиснути на чекбокс другого рядка для вибору елемента
+    await page.locator('xpath=//*[@data-testid="interactions-row-select-4"]').click();
+
+    // Перевірити, що лічильник вибраних елементів оновився
+    await expect(page.locator('xpath=//*[@data-testid="interactions-selected-count"]')).toContainText('2');
   });
 
 });
