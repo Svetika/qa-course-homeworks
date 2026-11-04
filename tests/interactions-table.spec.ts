@@ -34,17 +34,20 @@ test.describe('Interactions table tests', () => {
   test('verify elements can be checked and "checked" count is updated accordingly', async ({ page }) => {
     // variables
     const count = page.locator('xpath=//*[@data-testid="interactions-selected-count"]');
+    const firstRowCheckbox = page.locator('xpath=//*[@data-testid="interactions-row-select-1"]');
+    const fourthRowCheckbox = page.locator('xpath=//*[@data-testid="interactions-row-select-4"]');
+    
     // Перевірити, що початковий лічильник вибраних елементів дорівнює 0
     await expect(count).toContainText('0');
 
     // Натиснути на чекбокс першого рядка для вибору елемента
-    await page.locator('xpath=//*[@data-testid="interactions-row-select-1"]').click();
+    await firstRowCheckbox.click();
 
     // Перевірити, що лічильник вибраних елементів оновився
     await expect(count).toContainText('1');
 
     // Натиснути на чекбокс другого рядка для вибору елемента
-    await page.locator('xpath=//*[@data-testid="interactions-row-select-4"]').click();
+    await fourthRowCheckbox.click();
 
     // Перевірити, що лічильник вибраних елементів оновився
     await expect(count).toContainText('2');
